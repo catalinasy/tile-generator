@@ -1,5 +1,7 @@
+import { Container } from './styles';
+
 const Canvas = () => {
-  return <div>This is the canvas</div>;
+  return <Container>This is the canvas</Container>;
 };
 
 export default Canvas;

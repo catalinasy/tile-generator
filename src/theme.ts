@@ -9,12 +9,12 @@ export const theme: DefaultTheme = {
     light: '#F8F9FA',
     medium: '#E9ECEF',
     dark: '#495057',
-    text: '#212529'
+    text: '#212529',
   },
   fonts: {
     main: 'system-ui, sans-serif',
-    heading: 'Georgia, serif'
+    heading: 'Georgia, serif',
   },
   space: [4, 8, 12, 16, 24, 32, 48, 64],
-  radii: [0, 4, 8, 16]
+  radii: [0, 4, 8, 16],
 };

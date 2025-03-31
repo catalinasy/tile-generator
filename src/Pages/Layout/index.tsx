@@ -1,12 +1,15 @@
 import Canvas from '../../Components/Canvas';
 import SettingNavbar from '../../Components/SettingNavbar';
-import { Root } from './styles';
+import { ContentContainer, Root } from './styles';
 
 const Layout = () => {
   return (
     <Root>
-      <SettingNavbar />
-      <Canvas />
+      <h1>Tile Generator</h1>
+      <ContentContainer>
+        <SettingNavbar />
+        <Canvas />
+      </ContentContainer>
     </Root>
   );
 };

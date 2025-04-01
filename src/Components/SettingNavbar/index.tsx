@@ -3,19 +3,19 @@ import { useState } from 'react';
 import { Button } from '../Button';
 import { Select } from '../Select';
 import { ColorSelectionModal } from '../ColorSelectionModal';
-
 import { Container, ColorSelected } from './styles';
 
 const MOCK_OPTIONS = [
-  { value: 1, label: 'uno' },
-  { value: 2, label: 'dos' },
-  { value: 3, label: 'tres' },
+  { value: 'uno', label: 'uno' },
+  { value: 'dos', label: 'dos' },
+  { value: 'tres', label: 'tres' },
 ];
 
 const SettingNavbar = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [primaryColor, setPrimaryColor] = useState<string>('#000000');
   const [secondaryColor, setSecondaryColor] = useState<string>('#FF3333');
+  const [selectedDesign, setSelectedDesign] = useState<string | null>(null);
   const [changingState, setChanginState] = useState<'primary' | 'secondary'>(
     'primary'
   );
@@ -25,12 +25,17 @@ const SettingNavbar = () => {
       <ColorSelectionModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        color={changingState === 'primary' ? 'primaryColor' : 'secondaryColor'}
+        color={changingState === 'primary' ? primaryColor : secondaryColor}
         setColor={
           changingState === 'primary' ? setPrimaryColor : setSecondaryColor
         }
       />
-      <Select options={MOCK_OPTIONS} title="Select a design" />
+      <Select
+        options={MOCK_OPTIONS}
+        title="Select a design"
+        value={selectedDesign}
+        onChange={setSelectedDesign}
+      />
       <Button
         onClick={() => {
           setChanginState('primary');

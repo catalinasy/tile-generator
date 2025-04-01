@@ -6,7 +6,6 @@ interface FlowerProps {
   width?: number;
   height?: number;
   strokeColor?: string;
-  strokeWidth?: number;
 }
 
 const Flower: React.FC<FlowerProps> = ({
@@ -14,8 +13,6 @@ const Flower: React.FC<FlowerProps> = ({
   secondaryColor = 'black',
   width = 200,
   height = 200,
-  strokeColor = 'black',
-  strokeWidth = 2,
 }) => {
   // Calculate scale factors to maintain proportions
   const scale = Math.min(width, height) / 200;
@@ -32,13 +29,12 @@ const Flower: React.FC<FlowerProps> = ({
     >
       {/* Group containing all flower elements with proper scaling */}
       <g transform={`translate(${offsetX},${offsetY}) scale(${scale})`}>
-        {/* Outline Circle - now scales with the flower */}
         <circle
           cx="100"
           cy="100"
           r="85"
-          stroke={strokeColor}
-          strokeWidth={strokeWidth / scale} // Adjust stroke width for scaling
+          stroke={secondaryColor}
+          strokeWidth={2 / scale}
           fill="none"
         />
 

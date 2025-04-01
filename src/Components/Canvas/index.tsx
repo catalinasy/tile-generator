@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Flower from '../Designs/Flower';
+import { Context } from '../../Context';
+import Circles from '../Designs/Circles';
+import GridWithRectangles from '../Designs/Grid';
+import Sun from '../Designs/Sun';
 
 interface PatternProps {
   width?: number;
@@ -10,18 +14,38 @@ interface PatternProps {
   backgroundColor?: string;
   primaryColor?: string;
   secondaryColor?: string;
+  design: string | null;
 }
 
+const getDesigns = (props: {
+  design: string | null;
+  width: number;
+  height: number;
+  primaryColor: string;
+  secondaryColor: string;
+}) => {
+  switch (props.design) {
+    case 'circles':
+      return <Circles {...props} />;
+    case 'grid':
+      return <GridWithRectangles {...props} />;
+    case 'sun':
+      return <Sun {...props} />;
+    default:
+      return <Flower {...props} />;
+  }
+};
+
 const PatternGenerator: React.FC<PatternProps> = ({
+  design,
   width = 800,
   height = 600,
-  spacing = 30, // Single spacing value for both directions
+  spacing = 8, // Single spacing value for both directions
   iconSize = 60,
   rotation = 0,
   backgroundColor = 'transparent',
-  primaryColor = 'red',
-  secondaryColor = 'black',
 }) => {
+  const { primaryColor, secondaryColor } = useContext(Context);
   // Calculate total space needed per icon (icon + spacing)
   const cellSize = iconSize + spacing;
 
@@ -48,12 +72,13 @@ const PatternGenerator: React.FC<PatternProps> = ({
               offsetY + row * cellSize
             }) rotate(${rotation} ${iconSize / 2} ${iconSize / 2})`}
           >
-            <Flower
-              width={iconSize}
-              height={iconSize}
-              primaryColor={primaryColor}
-              secondaryColor={secondaryColor}
-            />
+            {getDesigns({
+              design,
+              width: iconSize,
+              height: iconSize,
+              primaryColor,
+              secondaryColor,
+            })}
           </g>
         ))
       )}

@@ -53,11 +53,19 @@ export const ModalBody = styled.div`
   padding: 16px;
   width: 80%;
   margin: auto;
-  padding: 4rem 0;
+  padding: 2rem 0 2rem 0;
 `;
 
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  padding-top: 12px;
+  gap: 12px;
+  padding-top: 2rem;
+`;
+
+export const ColorDisplayContainer = styled.div`
+  display: flex;
+  gap: 12px;
+  padding-bottom: 24px;
+  align-items: center;
 `;

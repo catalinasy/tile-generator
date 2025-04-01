@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SliderPicker } from 'react-color';
 import {
   ModalBody,
@@ -8,8 +8,10 @@ import {
   ModalHeader,
   CloseButton,
   ButtonContainer,
+  ColorDisplayContainer,
 } from './styles';
 import { Button } from '../Button';
+import { ColorSelected } from '../SettingNavbar/styles';
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,6 +26,8 @@ export const ColorSelectionModal: React.FC<ModalProps> = ({
   color,
   setColor,
 }) => {
+  const [localColor, setLocalColor] = useState(color);
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -44,6 +48,11 @@ export const ColorSelectionModal: React.FC<ModalProps> = ({
     };
   }, [isOpen, onClose]);
 
+  const handleConfirm = useCallback(() => {
+    setColor(localColor);
+    onClose();
+  }, [localColor]);
+
   if (!isOpen) return null;
 
   return (
@@ -57,14 +66,19 @@ export const ColorSelectionModal: React.FC<ModalProps> = ({
           </CloseButton>
         </ModalHeader>
         <ModalBody>
+          <ColorDisplayContainer>
+            <span>Selected Color</span>
+            <ColorSelected background={localColor} />
+          </ColorDisplayContainer>
           <SliderPicker
-            color={color}
+            color={localColor}
             onChangeComplete={(color) => {
-              setColor(color.hex);
+              setLocalColor(color.hex);
             }}
           />
           <ButtonContainer>
-            <Button onClick={onClose}>Done</Button>
+            <Button onClick={handleConfirm}>Done</Button>
+            <Button onClick={onClose}>Cancel</Button>
           </ButtonContainer>
         </ModalBody>
       </ModalContainer>

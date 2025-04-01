@@ -1,24 +1,31 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { Button } from '../Button';
 import { Select } from '../Select';
 import { ColorSelectionModal } from '../ColorSelectionModal';
 import { Container, ColorSelected } from './styles';
+import { Context } from '../../Context';
 
-const MOCK_OPTIONS = [
-  { value: 'uno', label: 'uno' },
-  { value: 'dos', label: 'dos' },
-  { value: 'tres', label: 'tres' },
+const Designs = [
+  { value: 'flower', label: 'Flowers' },
+  { value: 'circles', label: 'Circles' },
+  { value: 'grid', label: 'Grid' },
+  { value: 'sun', label: 'Sun' },
 ];
 
 const SettingNavbar = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [primaryColor, setPrimaryColor] = useState<string>('#000000');
-  const [secondaryColor, setSecondaryColor] = useState<string>('#FF3333');
-  const [selectedDesign, setSelectedDesign] = useState<string | null>(null);
   const [changingState, setChanginState] = useState<'primary' | 'secondary'>(
     'primary'
   );
+  const {
+    primaryColor,
+    secondaryColor,
+    selectedDesign,
+    setPrimaryColor,
+    setSecondaryColor,
+    setSelectedDesign,
+  } = useContext(Context);
 
   return (
     <Container>
@@ -31,7 +38,7 @@ const SettingNavbar = () => {
         }
       />
       <Select
-        options={MOCK_OPTIONS}
+        options={Designs}
         title="Select a design"
         value={selectedDesign}
         onChange={setSelectedDesign}

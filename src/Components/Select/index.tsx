@@ -2,8 +2,8 @@ import React from 'react';
 import { SelectWrapper, StyledSelect } from './styles';
 
 interface SelectProps {
-  options: { value: number; label: string }[];
-  value?: string;
+  options: { value: string; label: string }[];
+  value: string | null;
   onChange?: (value: string) => void;
   placeholder?: string;
   disabled?: boolean;
@@ -28,7 +28,7 @@ export const Select: React.FC<SelectProps> = ({
     <SelectWrapper>
       {title && <span>{title}</span>}
       <StyledSelect
-        value={value}
+        value={value || undefined}
         onChange={handleChange}
         disabled={disabled}
         width={width}

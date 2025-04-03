@@ -5,17 +5,17 @@ interface GridProps {
   height?: number;
   gridSize?: number;
   squareSize?: number;
-  gridColor?: string;
-  squareColor?: string;
+  secondaryColor: string;
+  primaryColor: string;
 }
 
 const UniformGrid: React.FC<GridProps> = ({
   width = 200,
   height = 200,
-  gridSize = 50,
+  gridSize = 52,
   squareSize = 10,
-  gridColor = '#e5e7eb',
-  squareColor = '#3b82f6',
+  secondaryColor,
+  primaryColor,
 }) => {
   // Calculate number of complete grid cells that fit
   const cols = Math.floor(width / gridSize);
@@ -25,7 +25,7 @@ const UniformGrid: React.FC<GridProps> = ({
     <svg
       width={width}
       height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`-4 -4 ${width} ${height}`}
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Horizontal grid lines */}
@@ -36,7 +36,7 @@ const UniformGrid: React.FC<GridProps> = ({
           y1={i * gridSize}
           x2={width}
           y2={i * gridSize}
-          stroke={gridColor}
+          stroke={secondaryColor}
           strokeWidth={1}
         />
       ))}
@@ -49,7 +49,7 @@ const UniformGrid: React.FC<GridProps> = ({
           y1={0}
           x2={i * gridSize}
           y2={height}
-          stroke={gridColor}
+          stroke={secondaryColor}
           strokeWidth={1}
         />
       ))}
@@ -63,9 +63,9 @@ const UniformGrid: React.FC<GridProps> = ({
             y={row * gridSize - squareSize / 2}
             width={squareSize}
             height={squareSize}
-            fill={squareColor}
+            fill={primaryColor}
             rx={1}
-            stroke={squareColor}
+            stroke={primaryColor}
             strokeWidth={0.5}
           />
         ))

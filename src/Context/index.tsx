@@ -1,4 +1,4 @@
-import { createContext, ReactElement, useState } from 'react';
+import { createContext, ReactElement, RefObject, useState } from 'react';
 
 export type ContextData = {
   primaryColor: string;
@@ -7,6 +7,8 @@ export type ContextData = {
   setSecondaryColor: (value: string) => void;
   selectedDesign: string | null;
   setSelectedDesign: (value: string) => void;
+  svgRef?: RefObject<SVGSVGElement>;
+  setSvgRef: (svgRef: RefObject<SVGSVGElement>) => void;
 };
 
 const initialState = {
@@ -16,6 +18,7 @@ const initialState = {
   setSecondaryColor: () => {},
   selectedDesign: null,
   setSelectedDesign: () => {},
+  setSvgRef: () => {},
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -29,6 +32,7 @@ const ContextProvider = ({ children }: { children: ReactElement }) => {
     initialState.secondaryColor
   );
   const [selectedDesign, setSelectedDesign] = useState<string | null>(null);
+  const [svgRef, setSvgRef] = useState<RefObject<SVGSVGElement>>();
 
   const ContextDataValue: ContextData = {
     primaryColor,
@@ -37,6 +41,8 @@ const ContextProvider = ({ children }: { children: ReactElement }) => {
     setSecondaryColor,
     selectedDesign,
     setSelectedDesign,
+    svgRef,
+    setSvgRef,
   };
 
   return (

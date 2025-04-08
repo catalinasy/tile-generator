@@ -5,6 +5,7 @@ import { Select } from '../Select';
 import { ColorSelectionModal } from '../ColorSelectionModal';
 import { Container, ColorSelected } from './styles';
 import { Context } from '../../Context';
+import useSaveDesign from '../../Hooks/useSaveDesign';
 
 const Designs = [
   { value: 'flower', label: 'Flowers' },
@@ -26,6 +27,7 @@ const SettingNavbar = () => {
     setSecondaryColor,
     setSelectedDesign,
   } = useContext(Context);
+  const { handleDownload } = useSaveDesign();
 
   return (
     <Container>
@@ -61,6 +63,7 @@ const SettingNavbar = () => {
         <span>Secondary Color</span>
         <ColorSelected background={secondaryColor} />
       </Button>
+      <Button onClick={handleDownload}>Download Design</Button>
     </Container>
   );
 };

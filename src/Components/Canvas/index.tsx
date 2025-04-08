@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { Ref, useContext, useEffect, useRef } from 'react';
 import Flower from '../Designs/Flower';
 import { Context } from '../../Context';
 import Circles from '../Designs/Circles';
@@ -45,7 +45,8 @@ const PatternGenerator: React.FC<PatternProps> = ({
   rotation = 0,
   backgroundColor = 'transparent',
 }) => {
-  const { primaryColor, secondaryColor } = useContext(Context);
+  const { primaryColor, secondaryColor, setSvgRef } = useContext(Context);
+  const svgRefLocal = useRef<SVGSVGElement>(null); // Correct ref type
   // Calculate total space needed per icon (icon + spacing)
   const cellSize = iconSize + spacing;
 
@@ -57,12 +58,20 @@ const PatternGenerator: React.FC<PatternProps> = ({
   const offsetX = (width - cols * cellSize) / 2 + iconSize / 2;
   const offsetY = (height - rows * cellSize) / 2 + iconSize / 2;
 
+  useEffect(() => {
+    if (svgRefLocal && svgRefLocal.current) {
+      //@ts-expect-error: svgRefLocal is not undefined if inside this block
+      setSvgRef(svgRefLocal);
+    }
+  }, [svgRefLocal]);
+
   return (
     <svg
       width={width}
       height={height}
       xmlns="http://www.w3.org/2000/svg"
       style={{ backgroundColor }}
+      ref={svgRefLocal}
     >
       {Array.from({ length: rows }).map((_, row) =>
         Array.from({ length: cols }).map((_, col) => (
